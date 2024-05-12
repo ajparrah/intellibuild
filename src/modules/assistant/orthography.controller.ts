@@ -1,9 +1,9 @@
 import { Controller, Post } from '@nestjs/common';
 
-@Controller('assistant/ortography')
+@Controller('assistant/orthography')
 export class OrtographyAssistantController {
   @Post()
-  public async ortography() {
+  public async orthography() {
     return 'Hello World!';
   }
 }
