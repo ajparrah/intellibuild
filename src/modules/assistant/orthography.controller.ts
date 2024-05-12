@@ -1,28 +1,13 @@
-import { Controller, Post } from '@nestjs/common';
-
-import OpenAI from 'openai';
+import { Body, Controller, Post } from '@nestjs/common';
+import { OrtographyService } from './services';
+import { OrthographyCheckDTO } from '@dtos/orthography-check.dto';
 
 @Controller('assistants/orthography')
 export class OrtographyAssistantController {
-  constructor(private readonly openAI: OpenAI) {}
+  constructor(private readonly orthographyService: OrtographyService) {}
 
-  @Post()
-  public async orthography() {
-    // TODO: Move to own service and add an abtraction layer to build other assistants
-    const completion = await this.openAI.chat.completions.create({
-      messages: [
-        {
-          role: 'system',
-          content: 'Eres un asistente para corregir ortografia muy util',
-        },
-      ],
-      model: 'gpt-3.5-turbo',
-    });
-
-    if (completion.choices.length >= 1) {
-      return completion.choices.at(0);
-    }
-
-    return 'There is not valid choices. Try it again.';
+  @Post('check')
+  public async orthography(@Body() orthographyCheckDTO: OrthographyCheckDTO) {
+    return await this.orthographyService.check(orthographyCheckDTO.text);
   }
 }
