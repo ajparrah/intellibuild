@@ -33,7 +33,7 @@ export class OrtographyService {
           content: text,
         },
       ],
-      model: 'gpt-4',
+      model: 'gpt-4o',
     });
 
     const response = JSON.parse(completions.choices.at(0).message.content);
