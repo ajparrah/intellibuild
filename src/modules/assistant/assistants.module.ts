@@ -4,10 +4,15 @@ import { AssistantsService } from './services/assistants.service';
 import { OrtographyAssistantController } from './orthography.controller';
 import OpenAI from 'openai';
 import { ConfigService } from '@nestjs/config';
-import { OrtographyService } from './services';
+import { OrtographyService, ProsConsService } from './services';
+import { ProsConsController } from './pros-cons.controller';
 
 @Module({
-  controllers: [AssistantsController, OrtographyAssistantController],
+  controllers: [
+    AssistantsController,
+    OrtographyAssistantController,
+    ProsConsController,
+  ],
   providers: [
     AssistantsService,
     {
@@ -21,6 +26,7 @@ import { OrtographyService } from './services';
       inject: [ConfigService],
     },
     OrtographyService,
+    ProsConsService,
   ],
 })
 export class AssistantsModule {}
